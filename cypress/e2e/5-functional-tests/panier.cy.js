@@ -29,9 +29,9 @@ describe("Cart Tests", () => {
         cy.visit("/products/{productId}");
         cy.get('[data-cy="product-stock"]')
           .invoke("text")
-          .then((updatedStockText) => {
-            const updatedStock = parseInt(updatedStockText, 10);
-            expect(updatedStock).to.eq(initialStock - 1); // Verifică dacă stocul a fost redus
+          .then((updatedStockNumber) => {
+            const updatedStock = Number(updatedStockNumber);
+            expect(updatedStock).to.eq(initialStock - 1); // Verify if stock was reduced
           });
       });
   });
