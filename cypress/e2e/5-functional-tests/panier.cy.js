@@ -26,20 +26,18 @@ describe("Cart Tests", () => {
       .find('[data-cy="product-link"]')
       .click();
     cy.url().should("include", "/products/");
-    cy.get('[data-cy="detail-product-add"]').should("be.visible").click();
-    cy.visit("/products/{productId}");
     cy.get('[data-cy="detail-product-stock"]')
       .invoke("text")
       .then((stockText) => {
         const initialStock = parseInt(stockText, 10);
-        expect(initialStock).to.be.greaterThan(1); // Verifică dacă stocul este mai mare de 1
+        expect(initialStock).to.be.greaterThan(1);
         cy.get('[data-cy="detail-product-add"]').click();
-        cy.visit("/products/{productId}"); // Revizitează pagina produsului pentru a verifica stocul
+        cy.visit("/products/{productId}");
         cy.get('[data-cy="product-stock"]')
           .invoke("text")
           .then((updatedStockText) => {
             const updatedStock = parseInt(updatedStockText, 10);
-            expect(updatedStock).to.eq(initialStock - 1);
+            expect(updatedStock).to.eq(initialStock - 1); // Verifică dacă stocul a fost redus
           });
       });
   });
@@ -50,25 +48,17 @@ describe("Cart Tests", () => {
       .first()
       .find('[data-cy="cart-line-quantity"]')
       .clear()
-      .type("-5");
-    cy.get('[data-cy="cart-line"]')
-      .first()
-      .find('[data-cy="cart-line-update"]')
-      .click();
+      .type("-5{enter}");
     cy.get('[data-cy="cart-line"]')
       .first()
       .find('[data-cy="cart-line-quantity"]')
-      .should("have.value", "1"); // Verify if the negative value was reseted to 1
+      .should("have.value", "1"); // Verify if the negative value was reset to 1
 
     cy.get('[data-cy="cart-line"]')
       .first()
       .find('[data-cy="cart-line-quantity"]')
       .clear()
-      .type("25");
-    cy.get('[data-cy="cart-line"]')
-      .first()
-      .find('[data-cy="cart-line-update"]')
-      .click();
+      .type("25{enter}");
     cy.get('[data-cy="cart-line"]')
       .first()
       .find('[data-cy="cart-line-quantity"]')

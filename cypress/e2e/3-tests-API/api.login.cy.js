@@ -8,7 +8,7 @@ describe("API login test", () => {
       url: `${UrlApi}/login`,
       body: {
         username: Cypress.env("username"),
-        password: Cypress.env("username"),
+        password: Cypress.env("password"),
       },
       failOnStatusCode: false,
     }).then((response) => {
