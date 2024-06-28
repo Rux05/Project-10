@@ -22,8 +22,8 @@ describe("Cart Tests", () => {
     cy.url().should("include", "/products/");
     cy.get('[data-cy="detail-product-stock"]')
       .invoke("text")
-      .then((stockText) => {
-        const initialStock = parseInt(stockText, 10);
+      .then((stockNumber) => {
+        const initialStock = Number(stockNumber, 10);
         expect(initialStock).to.be.greaterThan(1);
         cy.get('[data-cy="detail-product-add"]').click();
         cy.visit("/products/{productId}");
@@ -56,7 +56,7 @@ describe("Cart Tests", () => {
     cy.get('[data-cy="cart-line"]')
       .first()
       .find('[data-cy="cart-line-quantity"]')
-      .should("have.value", "20");
+      .should("have.value", "20"); // DE MODIFICAT!!! BOUTON INVALID OR NEW VALUE EQ STOCK VALUE
   });
 
   it("should remove a product from the cart", () => {
