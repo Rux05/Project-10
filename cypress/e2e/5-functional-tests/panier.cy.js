@@ -9,7 +9,7 @@ describe("Cart Tests", () => {
 
   it("should add a product to the cart", () => {
     cy.visit("/products");
-    cy.get('[data-cy="product-link"]').first().click();
+    cy.get('.add-to-cart [data-cy="product-link"]').first().click();
     cy.url().should("include", "/products/");
     cy.get('[data-cy="detail-product-add"]').should("be.visible").click(); //Ajouter au panier
     cy.visit("/cart");
@@ -18,7 +18,7 @@ describe("Cart Tests", () => {
 
   it("should verify if the stock is reduced after adding to cart", () => {
     cy.visit("/products");
-    cy.get('[data-cy="product-link"]').first().click();
+    cy.get('.add-to-cart [data-cy="product-link"]').first().click();
     cy.url().should("include", "/products/");
     cy.get('[data-cy="detail-product-stock"]')
       .invoke("text")
