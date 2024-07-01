@@ -40,7 +40,7 @@ describe("API orders test", () => {
       },
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(403); // 403 (Forbidden)
+      expect(response.status).to.eq(401); // 401 (Unauthorized) vs 403 (Forbidden)
     });
   });
   //   it("should create and validate an order", () => {

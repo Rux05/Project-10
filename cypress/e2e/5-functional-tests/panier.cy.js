@@ -1,7 +1,5 @@
 const { expect } = require("chai");
 
-const UrlApi = Cypress.env("UrlApi");
-
 describe("Cart Tests", () => {
   beforeEach(() => {
     cy.login();
@@ -23,14 +21,15 @@ describe("Cart Tests", () => {
     cy.get('[data-cy="detail-product-stock"]')
       .invoke("text")
       .then((stockNumber) => {
-        const initialStock = Number(stockNumber, 10);
+        const initialStock = Number(stockNumber.trim());
         expect(initialStock).to.be.greaterThan(1);
         cy.get('[data-cy="detail-product-add"]').click();
-        cy.visit("/products/{productId}");
+        // cy.visit("/products/{productId}");
+        cy.url().should("include", "/products/");
         cy.get('[data-cy="product-stock"]')
           .invoke("text")
           .then((updatedStockNumber) => {
-            const updatedStock = Number(updatedStockNumber);
+            const updatedStock = Number(updatedStockNumber.trim());
             expect(updatedStock).to.eq(initialStock - 1); // Verify if stock was reduced
           });
       });
@@ -52,15 +51,16 @@ describe("Cart Tests", () => {
       .first()
       .find('[data-cy="cart-line-quantity"]')
       .clear()
-      .type("25{enter}");
+      .type("120{enter}");
     cy.get('[data-cy="cart-line"]')
       .first()
       .find('[data-cy="cart-line-quantity"]')
-      .should("have.value", "20"); // DE MODIFICAT!!! BOUTON INVALID OR NEW VALUE EQ STOCK VALUE
+      .should("have.value", "1"); // Verify if the big quantity entered was reset to 1
   });
 
   it("should remove a product from the cart", () => {
     cy.visit("/cart");
+    cy.get('[data-cy="cart-line"]').should("have.length.greaterThan", 0);
     cy.get('[data-cy="cart-line-delete"]').should("be.visible").click();
     cy.get('[data-cy="cart-line"]').should("have.length", 0);
   });

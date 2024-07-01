@@ -51,7 +51,7 @@ describe("API add product to cart test", () => {
 it("should return an error when not authenticated", () => {
   cy.logout();
   cy.request({
-    method: "POST",
+    method: "PUT",
     url: `${UrlApi}/orders/add`,
     body: {
       product: 1,
@@ -62,7 +62,6 @@ it("should return an error when not authenticated", () => {
       "Content-Type": "application/json",
     },
   }).then((response) => {
-    // expect(response.status).to.eq(401); // Unauthorized
-    expect(response.status).to.eq(405); // Method Not Allowed
+    expect(response.status).to.eq(401); // Unauthorized
   });
 });
