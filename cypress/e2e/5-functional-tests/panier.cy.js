@@ -54,8 +54,10 @@ describe("Cart Tests", () => {
       .type("120{enter}");
     cy.get('[data-cy="cart-line"]')
       .first()
-      .find('[data-cy="cart-line-quantity"]')
-      .should("have.value", "1"); // Verify if the big quantity entered was reset to 1
+      .find('[data-cy="quantity-error"]')
+      .should("be.visible"); // Check if an error message is displayed
+
+    cy.get('[data-cy="add-to-cart-button"]').should("have.attr", "disabled"); // Check if the add to cart button is disabled
   });
 
   it("should remove a product from the cart", () => {
@@ -63,5 +65,17 @@ describe("Cart Tests", () => {
     cy.get('[data-cy="cart-line"]').should("have.length.greaterThan", 0);
     cy.get('[data-cy="cart-line-delete"]').should("be.visible").click();
     cy.get('[data-cy="cart-line"]').should("have.length", 0);
+  });
+  it("should handle adding a quantity greater than available stock", () => {
+    cy.visit("/products");
+    cy.get('.add-to-cart [data-cy="product-link"]').first().click();
+    cy.url().should("include", "/products/");
+    cy.get('[data-cy="detail-product-stock"]')
+      .invoke("text")
+      .then((stockNumber) => {
+        const initialStock = Number(stockNumber.trim());
+        expect(initialStock).to.be.greaterThan(1);
+        cy.get('[data-cy="detail-product-add"]').click();
+      });
   });
 });

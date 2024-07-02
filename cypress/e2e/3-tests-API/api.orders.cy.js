@@ -16,7 +16,9 @@ describe("API orders test", () => {
       },
     }).then((response) => {
       expect(response.status).to.eq(200);
-      expect(response.body).to.be.an("array");
+      expect(response.body).to.be.an("object");
+      expect(response.body).to.have.property("orderLines");
+      expect(response.body.orderLines).to.be.an("array");
     });
   });
 
@@ -43,54 +45,4 @@ describe("API orders test", () => {
       expect(response.status).to.eq(401); // 401 (Unauthorized) vs 403 (Forbidden)
     });
   });
-  //   it("should create and validate an order", () => {
-  //     const authToken = localStorage.getItem("user");
-  //     cy.request({
-  //       method: "POST",
-  //       url: `${UrlApi}/orders`,
-  //       headers: {
-  //         Authorization: `Bearer ${authToken}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: {
-  //         firstname: "Ion",
-  //         lastname: "Popescu",
-  //         address: "123 Street",
-  //         zipCode: "12345",
-  //         city: "Testcity",
-  //       },
-  //     }).then((response) => {
-  //       expect(response.status).to.eq(200);
-  //       expect(response.body).to.have.property("id");
-  //       expect(response.body.firstname).to.eq("Ion");
-  //       expect(response.body.lastname).to.eq("Popescu");
-  //       expect(response.body.address).to.eq("123 Street");
-  //       expect(response.body.zipCode).to.eq("12345");
-  //       expect(response.body.city).to.eq("Testcity");
-  //       expect(response.body).to.have.property("validated").that.is.true;
-  //       expect(response.body).to.have.property("orderLines").that.is.an("array");
-  //     });
-  //   });
-
-  //   it("should return an error if there is no ongoing order", () => {
-  //     const authToken = localStorage.getItem("token");
-  //     cy.request({
-  //       method: "POST",
-  //       url: `${UrlApi}/orders`,
-  //       headers: {
-  //         Authorization: `Bearer ${authToken}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: {
-  //         firstname: "Ion",
-  //         lastname: "Popescu",
-  //         address: "123 Street",
-  //         zipCode: "12345",
-  //         city: "Testcity",
-  //       },
-  //       failOnStatusCode: false,
-  //     }).then((response) => {
-  //       expect(response.status).to.eq(404);
-  //     });
-  //   });
 });
