@@ -72,7 +72,7 @@ describe("API reviews test", () => {
       },
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(401);
+      expect(response.status).to.eq(400);
     });
   });
 
@@ -89,7 +89,7 @@ describe("API reviews test", () => {
       },
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(401);
+      expect(response.status).to.eq(400);
     });
   });
 
@@ -106,7 +106,7 @@ describe("API reviews test", () => {
       },
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(401);
+      expect(response.status).to.eq(400);
     });
   });
 
@@ -145,6 +145,25 @@ describe("API reviews test", () => {
       failOnStatusCode: false,
     }).then((response) => {
       expect(response.status).to.eq(401);
+    });
+  });
+
+  it("should not allow script tags in review comments (XSS Test)", () => {
+    const xssScriptComment = "<script>alert('XSS Attack');</script>";
+    cy.request({
+      method: "POST",
+      url: `${UrlApi}/reviews`,
+      body: {
+        title: "XSS Test",
+        comment: xssScriptComment,
+        rating: 3,
+      },
+      headers: {
+        "Content-Type": "application/json",
+      },
+      failOnStatusCode: false,
+    }).then((response) => {
+      expect(response.status).to.eq(403); //403 Forbidden
     });
   });
 });

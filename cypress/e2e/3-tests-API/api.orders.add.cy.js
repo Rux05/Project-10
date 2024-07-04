@@ -29,23 +29,6 @@ describe("API add product to cart test", () => {
 
   it("should return an error when adding an out-of-stock product to the cart", () => {
     const authToken = localStorage.getItem("user");
-    //   cy.request({
-    //     method: "PUT",
-    //     url: `${UrlApi}/orders/add`,
-    //     headers: {
-    //       Authorization: `Bearer ${authToken}`,
-    //     },
-    //     body: {
-    //       product: 1, // ID of an out-of-stock product
-    //       quantity: 1000,
-    //     },
-    //     failOnStatusCode: false,
-    //   }).then((response) => {
-    //     expect(response.status).to.eq(400); // Bad request
-    //   });
-    //   cy.visit("/cart");
-    //   cy.get('[data-cy="cart-line"]').should("have.length", 0); // 0 products in the cart
-    // });
     cy.request({
       method: "GET",
       url: `${UrlApi}/products/3`, // product ID
@@ -54,7 +37,7 @@ describe("API add product to cart test", () => {
       },
     }).then((response) => {
       expect(response.status).to.eq(200);
-      const productStock = response.body.stock;
+      const productStock = response.body.availableStock;
       expect(productStock).to.be.a("number").and.to.be.greaterThan(0);
 
       const requestedQuantity = productStock + 1;

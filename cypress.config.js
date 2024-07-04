@@ -12,7 +12,28 @@ module.exports = defineConfig({
     viewportHeight: 660,
     defaultCommandTimeout: 10000, //10 sec waiting time before comand
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      config.reporter = "cypress-multi-reporters";
+      config.reporterOptions = {
+        reporterEnabled: "mochawesome",
+        mochawesomeReporterOptions: {
+          reportDir: "cypress/reports/mochawesome",
+          overwrite: false,
+          html: false,
+          json: true,
+        },
+      };
+      return config;
     },
   },
 });
+
+// reporter: "cypress-multi-reporters",
+// reporterOptions: {
+//   reporterEnabled: "mochawesome",
+//   mochawesomeReporterOptions: {
+//     reportDir: "cypress/reports/mochawesome",
+//     overwrite: false,
+//     html: false,
+//     json: true,
+//   },
+// },
