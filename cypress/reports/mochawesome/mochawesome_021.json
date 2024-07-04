@@ -1,0 +1,149 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 2,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-07-04T18:05:36.209Z",
+    "end": "2024-07-04T18:05:50.261Z",
+    "duration": 14052,
+    "testsRegistered": 3,
+    "passPercent": 66.66666666666666,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "06f9105c-388f-4648-b796-da355ac23245",
+      "title": "",
+      "fullFile": "cypress\\e2e\\3-tests-API\\api.orders.add.cy.js",
+      "file": "cypress\\e2e\\3-tests-API\\api.orders.add.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "3cde93ac-8aad-4630-828c-25301b1f8c65",
+          "title": "API add product to cart test",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should add an available product to the cart",
+              "fullTitle": "API add product to cart test should add an available product to the cart",
+              "timedOut": null,
+              "duration": 9656,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const authToken = localStorage.getItem(\"user\");\ncy.request({\n  method: \"PUT\",\n  url: `${UrlApi}/orders/add`,\n  headers: {\n    Authorization: `Bearer ${authToken}`\n  },\n  body: {\n    product: 5,\n    // ID of an available product\n    quantity: 1\n  }\n}).then(response => {\n  expect(response.status).to.eq(200); // (OK)\n  cy.visit(\"/cart\");\n  cy.wait(2000);\n  cy.get('[data-cy=\"cart-line\"]').should(\"have.length.at.least\", 1); // Verify if there is at least 1 product in the cart\n});",
+              "err": {},
+              "uuid": "f48eea10-3f60-4de3-b7f1-64dd57ae8cb3",
+              "parentUUID": "3cde93ac-8aad-4630-828c-25301b1f8c65",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should return an error when adding an out-of-stock product to the cart",
+              "fullTitle": "API add product to cart test should return an error when adding an out-of-stock product to the cart",
+              "timedOut": null,
+              "duration": 1953,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const authToken = localStorage.getItem(\"user\");\ncy.request({\n  method: \"GET\",\n  url: `${UrlApi}/products/3`,\n  // product ID\n  headers: {\n    Authorization: `Bearer ${authToken}`\n  }\n}).then(response => {\n  expect(response.status).to.eq(200);\n  const productStock = response.body.availableStock;\n  expect(productStock).to.be.a(\"number\").and.to.be.greaterThan(0);\n  const requestedQuantity = productStock + 1;\n  cy.request({\n    method: \"PUT\",\n    url: `${UrlApi}/orders/add`,\n    headers: {\n      Authorization: `Bearer ${authToken}`\n    },\n    body: {\n      product: 3,\n      // product ID\n      quantity: requestedQuantity\n    },\n    failOnStatusCode: false\n  }).then(response => {\n    expect(response.status).to.eq(400); // Bad request\n    expect(response.body).to.have.property(\"error\");\n    cy.visit(\"/cart\");\n    cy.get('[data-cy=\"cart-line\"]').should(\"have.length\", 0); // 0 products in the cart\n  });\n});",
+              "err": {
+                "message": "AssertionError: expected -10 to be above +0",
+                "estack": "AssertionError: expected -10 to be above +0\n    at Context.eval (webpack:///./cypress/support/commands.js:22:4)",
+                "diff": null
+              },
+              "uuid": "349f4de1-da31-4780-8d1a-b00caba16afa",
+              "parentUUID": "3cde93ac-8aad-4630-828c-25301b1f8c65",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should return an error when not authenticated",
+              "fullTitle": "API add product to cart test should return an error when not authenticated",
+              "timedOut": null,
+              "duration": 2007,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.logout();\ncy.request({\n  method: \"PUT\",\n  url: `${UrlApi}/orders/add`,\n  body: {\n    product: 1,\n    quantity: 2\n  },\n  failOnStatusCode: false,\n  headers: {\n    \"Content-Type\": \"application/json\"\n  }\n}).then(response => {\n  expect(response.status).to.eq(401); // Unauthorized\n});",
+              "err": {},
+              "uuid": "ee7f2488-cc95-40ec-8c89-aaf0dac5107f",
+              "parentUUID": "3cde93ac-8aad-4630-828c-25301b1f8c65",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f48eea10-3f60-4de3-b7f1-64dd57ae8cb3",
+            "ee7f2488-cc95-40ec-8c89-aaf0dac5107f"
+          ],
+          "failures": [
+            "349f4de1-da31-4780-8d1a-b00caba16afa"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 13616,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

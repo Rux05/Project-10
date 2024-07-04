@@ -1,0 +1,165 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-07-04T18:06:35.524Z",
+    "end": "2024-07-04T18:07:03.907Z",
+    "duration": 28383,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "f008c3c4-67f4-4639-b239-4c30b04ce03c",
+      "title": "",
+      "fullFile": "cypress\\e2e\\4-smoke-tests\\smoketests.cy.js",
+      "file": "cypress\\e2e\\4-smoke-tests\\smoketests.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c39da1b3-6868-408c-857e-2a1762f07d6a",
+          "title": "Smoke Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should verify the presence of login fields and buttons",
+              "fullTitle": "Smoke Tests should verify the presence of login fields and buttons",
+              "timedOut": null,
+              "duration": 3042,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.visit(\"/login\");\ncy.url().should(\"include\", \"/login\");\ncy.contains(\"Email\");\ncy.contains(\"Mot de passe\");\ncy.get('[data-cy=\"login-submit\"]').should(\"exist\");",
+              "err": {},
+              "uuid": "c136ab6e-1693-440d-ad27-cbee3ba1ce44",
+              "parentUUID": "c39da1b3-6868-408c-857e-2a1762f07d6a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [
+            {
+              "uuid": "33c592be-a887-41b1-ab02-283222552dba",
+              "title": "when authenticated",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "should verify the presence of add to cart buttons when logged in",
+                  "fullTitle": "Smoke Tests when authenticated should verify the presence of add to cart buttons when logged in",
+                  "timedOut": null,
+                  "duration": 13160,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.visit(\"/products\");\ncy.url().should(\"include\", \"/products\");\n// Verify if product list is loaded\ncy.get(\".list-products .mini-product\").should(\"have.length.greaterThan\", 0);\ncy.get(\".list-products .mini-product\").each(($el, index, $list) => {\n  // cy.wrap($el).contains(\"Ajouter au panier\").should(\"be.visible\");\n  // cy.wrap($el).find('[data-cy=\"product-link\"]').should(\"exist\");\n  cy.wrap($el);\n  // .find('.add-to-cart [data-cy=\"product-link\"]')\n  cy.get('.add-to-cart button[data-cy=\"product-link\"]').first().click();\n  cy.url().should(\"include\", \"/products/\");\n  cy.contains(\"Ajouter au panier\").should(\"be.visible\");\n  // Navigate back to products list to check the next product\n  if (index < $list.length - 1) {\n    cy.go(\"back\");\n    cy.wait(1000); // Wait a moment to ensure the page has navigated back\n  }\n});",
+                  "err": {},
+                  "uuid": "e44b7866-9939-4bb6-a7c9-609173b522a5",
+                  "parentUUID": "33c592be-a887-41b1-ab02-283222552dba",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "should verify the presence of product availability field",
+                  "fullTitle": "Smoke Tests when authenticated should verify the presence of product availability field",
+                  "timedOut": null,
+                  "duration": 11323,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.visit(\"/products\");\ncy.url().should(\"include\", \"/products\");\ncy.get(\".list-products .mini-product\").each(($el, index, $list) => {\n  cy.wrap($el);\n  cy.get('.add-to-cart button[data-cy=\"product-link\"]').first().click();\n  cy.url().should(\"include\", \"/products/\");\n  cy.get(\".stock\").should(\"exist\");\n  // Navigate back to products list to check the next product\n  if (index < $list.length - 1) {\n    cy.go(\"back\");\n    cy.wait(1000); // Wait a moment to ensure the page has navigated back\n  }\n});",
+                  "err": {},
+                  "uuid": "eb3de11a-5314-4657-a820-66d444aa82aa",
+                  "parentUUID": "33c592be-a887-41b1-ab02-283222552dba",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "e44b7866-9939-4bb6-a7c9-609173b522a5",
+                "eb3de11a-5314-4657-a820-66d444aa82aa"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 24483,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [
+            "c136ab6e-1693-440d-ad27-cbee3ba1ce44"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3042,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

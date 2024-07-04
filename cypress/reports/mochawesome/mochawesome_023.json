@@ -1,0 +1,144 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-07-04T18:06:04.906Z",
+    "end": "2024-07-04T18:06:08.789Z",
+    "duration": 3883,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "d198667c-0dc9-4468-89e5-284bafd7c643",
+      "title": "",
+      "fullFile": "cypress\\e2e\\3-tests-API\\api.products.cy.js",
+      "file": "cypress\\e2e\\3-tests-API\\api.products.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1ab29ece-cdc1-4ec3-9105-4403cbf21f71",
+          "title": "API get products test",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should retrieve the list of products",
+              "fullTitle": "API get products test should retrieve the list of products",
+              "timedOut": null,
+              "duration": 1224,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"GET\",\n  url: `${UrlApi}/products`,\n  headers: {\n    Authorization: `Bearer ${localStorage.getItem(\"user\")}`,\n    \"Content-Type\": \"application/json\"\n  }\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.be.an(\"array\");\n  response.body.forEach(product => {\n    expect(product).to.have.property(\"id\");\n    expect(product).to.have.property(\"name\").that.is.a(\"string\");\n    expect(product).to.have.property(\"availableStock\").that.is.a(\"number\");\n    expect(product).to.have.property(\"skin\").that.is.a(\"string\");\n    expect(product).to.have.property(\"aromas\").that.is.a(\"string\");\n    expect(product).to.have.property(\"ingredients\").that.is.a(\"string\");\n    expect(product).to.have.property(\"description\").that.is.a(\"string\");\n    expect(product).to.have.property(\"price\").that.is.a(\"number\");\n    expect(product).to.have.property(\"picture\").that.is.a(\"string\");\n    expect(product).to.have.property(\"varieties\").that.is.a(\"number\");\n  });\n});",
+              "err": {},
+              "uuid": "a1685487-83ae-4623-8650-29665ae7b99e",
+              "parentUUID": "1ab29ece-cdc1-4ec3-9105-4403cbf21f71",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should retrieve product details by ID",
+              "fullTitle": "API get products test should retrieve product details by ID",
+              "timedOut": null,
+              "duration": 1212,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const productId = 3;\ncy.request({\n  method: \"GET\",\n  url: `${UrlApi}/products/${productId}`\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.be.an(\"object\");\n  expect(response.body).to.have.property(\"id\").that.is.a(\"number\");\n  expect(response.body).to.have.property(\"name\").that.is.a(\"string\");\n  expect(response.body).to.have.property(\"availableStock\").that.is.a(\"number\");\n  expect(response.body).to.have.property(\"skin\").that.is.a(\"string\");\n  expect(response.body).to.have.property(\"aromas\").that.is.a(\"string\");\n  expect(response.body).to.have.property(\"ingredients\").that.is.a(\"string\");\n  expect(response.body).to.have.property(\"description\").that.is.a(\"string\");\n  expect(response.body).to.have.property(\"price\").that.is.a(\"number\");\n  expect(response.body).to.have.property(\"picture\").that.is.a(\"string\");\n  expect(response.body).to.have.property(\"varieties\").that.is.a(\"number\");\n});",
+              "err": {},
+              "uuid": "62103262-84a1-46f9-9471-050c3054b279",
+              "parentUUID": "1ab29ece-cdc1-4ec3-9105-4403cbf21f71",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should return 404 for non-existent product ID",
+              "fullTitle": "API get products test should return 404 for non-existent product ID",
+              "timedOut": null,
+              "duration": 1319,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const nonExistentId = 9999;\ncy.request({\n  method: \"GET\",\n  url: `${UrlApi}/products/${nonExistentId}`,\n  headers: {\n    Authorization: `Bearer ${localStorage.getItem(\"user\")}`\n  },\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(404);\n});",
+              "err": {},
+              "uuid": "8314beca-d608-443a-97fe-a6892f48730a",
+              "parentUUID": "1ab29ece-cdc1-4ec3-9105-4403cbf21f71",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "a1685487-83ae-4623-8650-29665ae7b99e",
+            "62103262-84a1-46f9-9471-050c3054b279",
+            "8314beca-d608-443a-97fe-a6892f48730a"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 3755,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}

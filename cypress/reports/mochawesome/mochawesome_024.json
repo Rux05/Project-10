@@ -1,0 +1,275 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 9,
+    "passes": 5,
+    "pending": 0,
+    "failures": 4,
+    "start": "2024-07-04T18:06:14.678Z",
+    "end": "2024-07-04T18:06:30.701Z",
+    "duration": 16023,
+    "testsRegistered": 9,
+    "passPercent": 55.55555555555556,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "4d008ebd-4ead-4bf8-94ca-c65cdde7baff",
+      "title": "",
+      "fullFile": "cypress\\e2e\\3-tests-API\\api.reviews.cy.js",
+      "file": "cypress\\e2e\\3-tests-API\\api.reviews.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "be11dead-637b-44a3-92c9-32be39f890c6",
+          "title": "API reviews test",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should get existing reviews",
+              "fullTitle": "API reviews test should get existing reviews",
+              "timedOut": null,
+              "duration": 2378,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"GET\",\n  url: `${UrlApi}/reviews`\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.be.an(\"array\");\n});",
+              "err": {},
+              "uuid": "dde6d0e0-db10-4c1d-858b-9909d5ed4f66",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should add a new review",
+              "fullTitle": "API reviews test should add a new review",
+              "timedOut": null,
+              "duration": 1773,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const authToken = localStorage.getItem(\"user\");\ncy.request({\n  method: \"POST\",\n  url: `${UrlApi}/reviews`,\n  headers: {\n    Authorization: `Bearer ${authToken}`\n  },\n  body: {\n    title: \"Super\",\n    comment: \"Je l'aime bien, j'achèterai à nouveau !\",\n    rating: 5\n  }\n}).then(response => {\n  expect(response.status).to.eq(200); //201 the server has successfully processed the request, the new resource has been created\n  expect(response.body).to.have.property(\"id\");\n  expect(response.body.title).to.eq(\"Super\");\n  expect(response.body.comment).to.eq(\"Je l'aime bien, j'achèterai à nouveau !\");\n  expect(response.body.rating).to.eq(5);\n});",
+              "err": {},
+              "uuid": "77f50bb4-1c2c-4d96-9dbe-2529d196888f",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should validate review rating between 1 and 5",
+              "fullTitle": "API reviews test should validate review rating between 1 and 5",
+              "timedOut": null,
+              "duration": 1186,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"POST\",\n  url: `${UrlApi}/reviews`,\n  body: {\n    title: \"Invalid Rating\",\n    comment: \"This rating is invalid\",\n    rating: 6\n  },\n  headers: {\n    \"Content-Type\": \"application/json\"\n  },\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(401);\n});",
+              "err": {},
+              "uuid": "2b67605b-de96-49fe-a86d-dbdb8f5cd835",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should not add review without rating",
+              "fullTitle": "API reviews test should not add review without rating",
+              "timedOut": null,
+              "duration": 1691,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"POST\",\n  url: `${UrlApi}/reviews`,\n  body: {\n    title: \"Title without rating\",\n    comment: \"Comment without rating\"\n  },\n  headers: {\n    \"Content-Type\": \"application/json\"\n  },\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(400);\n});",
+              "err": {
+                "message": "AssertionError: expected 401 to equal 400",
+                "estack": "AssertionError: expected 401 to equal 400\n    at Context.eval (webpack:///./cypress/support/commands.js:22:4)",
+                "diff": "- 401\n+ 400\n"
+              },
+              "uuid": "e2c7c929-7c5b-483a-8393-d93441f41454",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should not add review without title",
+              "fullTitle": "API reviews test should not add review without title",
+              "timedOut": null,
+              "duration": 2433,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"POST\",\n  url: `${UrlApi}/reviews`,\n  body: {\n    comment: \"Comment without title\",\n    rating: 4\n  },\n  headers: {\n    \"Content-Type\": \"application/json\"\n  },\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(400);\n});",
+              "err": {
+                "message": "AssertionError: expected 401 to equal 400",
+                "estack": "AssertionError: expected 401 to equal 400\n    at Context.eval (webpack:///./cypress/support/commands.js:22:4)",
+                "diff": "- 401\n+ 400\n"
+              },
+              "uuid": "38dbb586-1013-4f7a-b015-db938e320d35",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should not add review without comment",
+              "fullTitle": "API reviews test should not add review without comment",
+              "timedOut": null,
+              "duration": 1881,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: \"POST\",\n  url: `${UrlApi}/reviews`,\n  body: {\n    title: \"Title without comment\",\n    rating: 3\n  },\n  headers: {\n    \"Content-Type\": \"application/json\"\n  },\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(400);\n});",
+              "err": {
+                "message": "AssertionError: expected 401 to equal 400",
+                "estack": "AssertionError: expected 401 to equal 400\n    at Context.eval (webpack:///./cypress/support/commands.js:22:4)",
+                "diff": "- 401\n+ 400\n"
+              },
+              "uuid": "af293505-8cb0-456a-9418-68a8559142b8",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should not add review with title longer than allowed",
+              "fullTitle": "API reviews test should not add review with title longer than allowed",
+              "timedOut": null,
+              "duration": 1141,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const longTitle = \"a\".repeat(256); // Exemple of title longer than 100 characters\ncy.request({\n  method: \"POST\",\n  url: `${UrlApi}/reviews`,\n  body: {\n    title: longTitle,\n    comment: \"Valid comment\",\n    rating: 3\n  },\n  headers: {\n    \"Content-Type\": \"application/json\"\n  },\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(401);\n});",
+              "err": {},
+              "uuid": "65fa21dd-d7ef-41a6-bd57-8a05b72ae71b",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should not add review with comment longer than allowed",
+              "fullTitle": "API reviews test should not add review with comment longer than allowed",
+              "timedOut": null,
+              "duration": 1125,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const longComment = \"a\".repeat(501); // Exemple of comment longer than 500 characters\ncy.request({\n  method: \"POST\",\n  url: `${UrlApi}/reviews`,\n  body: {\n    title: \"Valid title\",\n    comment: longComment,\n    rating: 3\n  },\n  headers: {\n    \"Content-Type\": \"application/json\"\n  },\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(401);\n});",
+              "err": {},
+              "uuid": "4f90231b-a7a6-4b8b-9e5a-77d1a9dbe76c",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should not allow script tags in review comments (XSS Test)",
+              "fullTitle": "API reviews test should not allow script tags in review comments (XSS Test)",
+              "timedOut": null,
+              "duration": 1605,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const xssScriptComment = \"<script>alert('XSS Attack');</script>\";\ncy.request({\n  method: \"POST\",\n  url: `${UrlApi}/reviews`,\n  body: {\n    title: \"XSS Test\",\n    comment: xssScriptComment,\n    rating: 3\n  },\n  headers: {\n    \"Content-Type\": \"application/json\"\n  },\n  failOnStatusCode: false\n}).then(response => {\n  expect(response.status).to.eq(403); //403 Forbidden\n});",
+              "err": {
+                "message": "AssertionError: expected 401 to equal 403",
+                "estack": "AssertionError: expected 401 to equal 403\n    at Context.eval (webpack:///./cypress/support/commands.js:22:4)",
+                "diff": "- 401\n+ 403\n"
+              },
+              "uuid": "ade4b5e3-2f1e-4527-9bcf-4960d3299c13",
+              "parentUUID": "be11dead-637b-44a3-92c9-32be39f890c6",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "dde6d0e0-db10-4c1d-858b-9909d5ed4f66",
+            "77f50bb4-1c2c-4d96-9dbe-2529d196888f",
+            "2b67605b-de96-49fe-a86d-dbdb8f5cd835",
+            "65fa21dd-d7ef-41a6-bd57-8a05b72ae71b",
+            "4f90231b-a7a6-4b8b-9e5a-77d1a9dbe76c"
+          ],
+          "failures": [
+            "e2c7c929-7c5b-483a-8393-d93441f41454",
+            "38dbb586-1013-4f7a-b015-db938e320d35",
+            "af293505-8cb0-456a-9418-68a8559142b8",
+            "ade4b5e3-2f1e-4527-9bcf-4960d3299c13"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 15213,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
