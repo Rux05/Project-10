@@ -9,8 +9,9 @@
   "dependencies": {
     "chai": "^5.1.1"
   },
-  "scripts": { 
+  "scripts": {
     "cypress:run": "cypress run",
-    "merge:reports": "mochawesome-merge cypress/reports/mochawesome/*.json > cypress/reports/mochawesome/report.json",
-    "generate:report": "marge cypress/reports/mochawesome/report.json -f report -o cypress/reports/mochawesome" }
+    "merge:reports": "mochawesome-merge cypress/reports/mochawesome/*.json > cypress/results/results.json",
+    "generate:report": "marge cypress/results/results.json -f report -o cypress/reports/mochawesome"
+  }
 }
