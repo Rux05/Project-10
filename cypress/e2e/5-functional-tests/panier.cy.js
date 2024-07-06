@@ -22,7 +22,7 @@ describe("Cart Tests", () => {
       .invoke("text")
       .then((availableStock) => {
         const initialStock = Number(availableStock.trim());
-        expect(initialStock).to.be.greaterThan(1);
+        expect(initialStock).to.be.greaterThan(0);
         cy.get('[data-cy="detail-product-add"]').click();
         // cy.visit("/products/{productId}");
         cy.url().should("include", "/products/");

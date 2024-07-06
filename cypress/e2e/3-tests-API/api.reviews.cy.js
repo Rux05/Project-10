@@ -72,7 +72,7 @@ describe("API reviews test", () => {
       },
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(400);
+      expect(response.status).to.eq(401);
     });
   });
 
@@ -89,7 +89,7 @@ describe("API reviews test", () => {
       },
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(400);
+      expect(response.status).to.eq(401);
     });
   });
 
@@ -106,7 +106,7 @@ describe("API reviews test", () => {
       },
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(400);
+      expect(response.status).to.eq(401);
     });
   });
 

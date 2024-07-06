@@ -29,7 +29,7 @@ describe("API orders test", () => {
       url: `${UrlApi}/orders`,
       failOnStatusCode: false,
     }).then((response) => {
-      expect(response.status).to.eq(401); //  401 (Unauthorized)
+      expect(response.status).to.eq(403); // Should be 403 (Forbidden), but returns 401 (Unauthorized)
     });
   });
   it("should return a forbidden error when not authorized to view the products from the cart", () => {
