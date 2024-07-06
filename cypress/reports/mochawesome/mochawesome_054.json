@@ -1,0 +1,125 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 2,
+    "pending": 0,
+    "failures": 0,
+    "start": "2024-07-06T17:56:19.963Z",
+    "end": "2024-07-06T17:56:27.268Z",
+    "duration": 7305,
+    "testsRegistered": 2,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "00928d44-ba66-4d33-b614-3f893332c63c",
+      "title": "",
+      "fullFile": "cypress\\e2e\\5-functional-tests\\connexion.cy.js",
+      "file": "cypress\\e2e\\5-functional-tests\\connexion.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "662dc082-e212-493d-b114-143e4db6228c",
+          "title": "Connexion Tests",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should log in successfully with valid credentials",
+              "fullTitle": "Connexion Tests should log in successfully with valid credentials",
+              "timedOut": null,
+              "duration": 5677,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('[data-cy=\"login-input-username\"]').type(Cypress.env(\"username\"), {\n  force: true\n});\ncy.get('[data-cy=\"login-input-password\"]').type(Cypress.env(\"password\"), {\n  force: true\n});\ncy.get('[data-cy=\"login-submit\"]').click();\ncy.visit(\"/\");\ncy.url().should(\"include\", \"/\");\n// cy.get(\"nav\").contains(\"Mon panier\").should(\"be.visible\");\ncy.get('[data-cy=\"nav-link-cart\"]').should(\"be.visible\");",
+              "err": {},
+              "uuid": "29e6886b-d040-42b1-9b19-89c306a9d45a",
+              "parentUUID": "662dc082-e212-493d-b114-143e4db6228c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should display an error with invalid credentials",
+              "fullTitle": "Connexion Tests should display an error with invalid credentials",
+              "timedOut": null,
+              "duration": 1433,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('[data-cy=\"login-input-username\"]').type(\"invalid@test.fr\", {\n  force: true\n});\ncy.get('[data-cy=\"login-input-password\"]').type(\"wrongpassword\", {\n  force: true\n});\ncy.get('[data-cy=\"login-submit\"]').click();\ncy.get('[data-cy=\"login-errors\"]').should(\"be.visible\");",
+              "err": {},
+              "uuid": "0549c499-0c98-4dc2-9515-49bdc6ab84bf",
+              "parentUUID": "662dc082-e212-493d-b114-143e4db6228c",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "29e6886b-d040-42b1-9b19-89c306a9d45a",
+            "0549c499-0c98-4dc2-9515-49bdc6ab84bf"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 7110,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/reports/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
